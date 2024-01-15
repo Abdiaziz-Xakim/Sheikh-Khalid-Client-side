@@ -189,7 +189,7 @@ const RegisterForm = () => {
 
         if(!resp?.error){
           console.log(res?.status)
-          router.push('/dashboard')
+          router.push('/pages/dashboard')
           router.refresh()
         }
 

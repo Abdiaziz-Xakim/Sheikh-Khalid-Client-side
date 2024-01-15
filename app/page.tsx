@@ -1,38 +1,20 @@
-// "use client";
+// import Dashboard from "@/pages/dashboard";
+import { useSession } from "next-auth/react";
+import scss from "../components/Layout/Layout.module.scss";
+import React from "react";
+import LoginPagee from "./users/login/page";
+import Dashboard from "./pages/dashboard";
+// import LoginPage from "./LoginTest";
 
-// // ** React Imports
-// import { useEffect } from 'react'
+const Home: React.FC = () => {
+  const { data: session } = useSession();
 
-// // ** Next Imports
-// import { useRouter } from 'next/navigation'
-
-// // ** Spinner Import
-// // import Spinner from 'src/@core/components/spinner'
-// import CircularProgress from '@mui/material/CircularProgress';
-
-// import { getServerAuthSession } from "./core/services/auth";
-
-// async function Home() {
-//   // ** Hooks
-//   const router = useRouter()
-//   const authSession = await getServerAuthSession(); 
-  
-//     if (authSession?.user) {
-//       // Redirect user to Home URL
-//       router.replace('/dashboard')
-//     }
-    
-//   return <CircularProgress />
-// }
-
-// export default Home
-
-import React from 'react'
-
-const Home = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main className={scss.main}>
+      {session && <Dashboard />}
+      {!session && <LoginPagee />}
+    </main>
+  );
+};
 
-export default Home
+export default Home;

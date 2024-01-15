@@ -1,9 +1,10 @@
 import React from 'react'
+import SidebarMenu from './Sidebar'
 
 const page = () => {
   return (
     <div>
-        <h1>Dashboard</h1>
+        <SidebarMenu/>
     </div>
   )
 }
