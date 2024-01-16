@@ -139,7 +139,7 @@ const router = useRouter()
       
       if(!res?.error){
         console.log(res?.status)
-        router.push('/components/Dashboard')
+        router.push('/components/SideMenu')
         router.refresh()
       }
     }

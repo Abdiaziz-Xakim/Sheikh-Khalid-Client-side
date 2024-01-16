@@ -10,7 +10,7 @@ import Navbar from './components/navigation/navbar/Navbar';
 // ** Store Imports
 import { store } from './store'
 import { Provider } from 'react-redux'
-import Sidebar from './pages/SidebarMenu/Sidebar';
+// import Sidebar from './pages/SidebarMenu/Sidebar';
 import Header from './components/Header';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -19,6 +19,7 @@ import darkTheme from "./theme/darkTheme";
 import lightTheme from "./theme/lightTheme";
 
 import { SessionProvider } from "next-auth/react";
+import SideMenu from './components/SideMenu';
 
 const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
@@ -62,11 +63,12 @@ const Layout: React.FC<any> = ({ children, session }) => {
         <SessionProvider session={session}>
           <body>
             <Provider store={store}>
-              <Sidebar/>
+              <SideMenu/>
               <main>
                 <Header ColorModeContext={ColorModeContext}/>
                 {children}
               </main>
+                  {session && <SideMenu />}
                 {/* <Footer/> */}
             </Provider>
           </body>
