@@ -119,7 +119,7 @@ const SideMenu = () => {
           <ListItem key={text} disablePadding sx={{ display: "block" }}>
             <NextLink
               className={scss.link}
-              href={`/dashboard/${menuRouteList[index]}`}
+              href={`/pages/dashboard/${menuRouteList[index]}`}
             >
               <ListItemButton
                 onClick={() => handleListItemButtonClick(text)}

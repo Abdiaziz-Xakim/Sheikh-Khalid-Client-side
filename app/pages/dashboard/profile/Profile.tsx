@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Paper from "@mui/material/Paper";
@@ -14,12 +16,14 @@ import {
 
 const Profile = () => {
   const { data: session } = useSession();
-  const names = session.user.name.split(" ");
-  const firstName = names[0];
-  const lastName = names.length > 1 ? names[names.length - 1] : "";
+  // const names = session.user.name.split(" ");
+  // const firstName = names[0];
+  // const lastName = names.length > 1 ? names[names.length - 1] : "";
   const [formData, setFormData] = useState({
-    firstName: firstName,
-    lastName: lastName,
+    // firstName: firstName,
+    // lastName: lastName,
+    firstName: "Abdiaziz",
+    lastName: "Abdinasir",
     email: session?.user?.email,
     password: "",
     confirmPassword: "",
