@@ -10,6 +10,7 @@ import { Settings } from "@mui/icons-material";
 import NextLink from "next/link";
 import scss from "./SideMenu.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from '@mui/icons-material/Person';
 
 import {
   Divider,
@@ -48,22 +49,23 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "data", "profile", "settings", "", "users/list"];
+const menuRouteList = ["", "users/list", "data", "profile", "settings", "",];
 const menuListTranslations = [
   "Home",
+  "Users List",
   "Data",
   "Profile",
   "Settings",
   "Sign Out",
-  "Users List"
 ];
 const menuListIcons = [
   <HomeIcon />,
+  <PersonIcon/>,
   <EqualizerIcon />,
   <Person2Icon />,
   <Settings />,
   <ExitToAppIcon />,
-  <ExitToAppIcon />,
+
 ];
 
 const SideMenu = () => {
