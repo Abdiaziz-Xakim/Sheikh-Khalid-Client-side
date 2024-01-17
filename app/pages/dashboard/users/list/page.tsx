@@ -30,7 +30,7 @@ import Button from '@mui/material/Button'
 // import DotsVertical from 'mdi-material-ui/DotsVertical'
 // import PencilOutline from 'mdi-material-ui/PencilOutline'
 // import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-import Icon from '../../icon'
+import Icon from '../../../../icon'
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,10 +43,10 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData } from '../../store/users'
+import { fetchData } from '../../../../store/users'
 
 // ** Types Imports
-import { RootState, AppDispatch } from '../../store'
+import { RootState, AppDispatch } from '../../../../store'
 // import { ThemeColor } from 'src/@core/layouts/types'
 // import { UsersType } from 'src/types/apps/userTypes'
 
@@ -383,7 +383,7 @@ const UserList = () => {
       <Grid item xs={12}>
         <Card>
           {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
-            <DataGrid
+          <DataGrid
               autoHeight
               pagination
               paginationMode="server"
@@ -400,8 +400,8 @@ const UserList = () => {
               rowCount={pageState.total}
               loading={pageState.isLoading}
               page={pageState.page - 1}
-            //   onPageChange={(newPage) => setPageState(old => ({ ...old, page: newPage + 1 }))}
-            //   onPageSizeChange={(newPageSize) => setPageState(old => ({ ...old, pageSize: newPageSize }))}
+              onPageChange={(newPage: any) => setPageState(old => ({ ...old, page: newPage + 1 }))}
+              onPageSizeChange={(newPageSize: any) => setPageState(old => ({ ...old, pageSize: newPageSize }))}
             />
         </Card>
       </Grid>

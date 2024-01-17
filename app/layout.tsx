@@ -21,6 +21,8 @@ import lightTheme from "./theme/lightTheme";
 import { SessionProvider } from "next-auth/react";
 import SideMenu from './components/SideMenu';
 
+import scss from './Layout.module.scss'
+
 const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 });
@@ -62,15 +64,15 @@ const Layout: React.FC<any> = ({ children, session }) => {
       >
         <SessionProvider session={session}>
           <body>
-            <Provider store={store}>
-              <SideMenu/>
-              <main>
-                <Header ColorModeContext={ColorModeContext}/>
+                <Provider store={store}>
+              <Header ColorModeContext={ColorModeContext}/>
+              <main className={scss.layout}>
+                <SideMenu/>
                 {children}
+                      {session && <SideMenu />}
+                    {/* <Footer/> */}
               </main>
-                  {session && <SideMenu />}
-                {/* <Footer/> */}
-            </Provider>
+                </Provider>
           </body>
         </SessionProvider>
         </ThemeProvider>

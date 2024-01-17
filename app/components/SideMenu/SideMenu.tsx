@@ -48,19 +48,21 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "data", "profile", "settings", ""];
+const menuRouteList = ["", "data", "profile", "settings", "", "users/list"];
 const menuListTranslations = [
   "Home",
   "Data",
   "Profile",
   "Settings",
   "Sign Out",
+  "Users List"
 ];
 const menuListIcons = [
   <HomeIcon />,
   <EqualizerIcon />,
   <Person2Icon />,
   <Settings />,
+  <ExitToAppIcon />,
   <ExitToAppIcon />,
 ];
 
