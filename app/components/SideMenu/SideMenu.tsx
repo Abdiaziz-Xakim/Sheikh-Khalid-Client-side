@@ -11,6 +11,7 @@ import NextLink from "next/link";
 import scss from "./SideMenu.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from '@mui/icons-material/Person';
+import SchoolIcon from '@mui/icons-material/School';
 
 import {
   Divider,
@@ -49,9 +50,10 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "users/list", "data", "profile", "settings", "",];
+const menuRouteList = ["", "students/list", "users/list", "data", "profile", "settings", "",];
 const menuListTranslations = [
   "Home",
+  "Students",
   "Users List",
   "Data",
   "Profile",
@@ -60,6 +62,7 @@ const menuListTranslations = [
 ];
 const menuListIcons = [
   <HomeIcon />,
+  <SchoolIcon />,
   <PersonIcon/>,
   <EqualizerIcon />,
   <Person2Icon />,

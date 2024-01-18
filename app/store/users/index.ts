@@ -14,6 +14,11 @@ interface DataParams {
   pageSize: number
 }
 
+interface Redux {
+  getState: any
+  dispatch: Dispatch<any>
+}
+
 // ** Fetch Users
 export const fetchData = createAsyncThunk(
   'appUsers/fetchData', 
@@ -33,12 +38,34 @@ export const fetchData = createAsyncThunk(
   ]
 })
 
+// ** Deactivate User
+export const deactivateUser = createAsyncThunk(
+  'appUsers/deactivateUser',
+    async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
+    const id = data.id
+    const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
+      is_active: false,
+    });
+
+    dispatch(
+      fetchData({
+        q: '',
+        page: 1,
+        pageSize: 10
+      })
+    )
+
+    return response.data
+  }
+)
+
 
 export const appUsersSlice = createSlice({
   name: 'appUsers',
   initialState: {
     data: [],
     total: 1,
+    status: '',
   },
   reducers: {},
   extraReducers: builder => {
@@ -46,6 +73,12 @@ export const appUsersSlice = createSlice({
     .addCase(fetchData.fulfilled, (state, action) => {
       state.data = action.payload[0].users
       state.total = action.payload[0].total
+    })
+    .addCase(deactivateUser.fulfilled, (state) => {
+      state.status = 'succeeded'
+    })
+    .addCase(deactivateUser.rejected, (state) => {
+      state.status = 'failed'
     })
  
   }

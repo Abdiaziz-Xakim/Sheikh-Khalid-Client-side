@@ -4,7 +4,7 @@
 // import type { AppProps } from 'next/app'
 
 import React, { ReactNode } from 'react';
-import Footer from './components/footer/Footer';
+import Footer from './components/Footer';
 import Navbar from './components/navigation/navbar/Navbar';
 
 // ** Store Imports
@@ -72,7 +72,7 @@ const Layout: React.FC<any> = ({ children, session }) => {
                 <SideMenu/>
                 {children}
                       {session && <SideMenu />}
-                    {/* <Footer/> */}
+                    <Footer/>
               </main>
                 </Provider>
           </body>

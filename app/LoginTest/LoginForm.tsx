@@ -139,7 +139,7 @@ const router = useRouter()
       
       if(!res?.error){
         console.log(res?.status)
-        router.push('/components/SideMenu')
+        router.push('/pages/dashboard')
         router.refresh()
       }
     }
@@ -151,7 +151,7 @@ const router = useRouter()
   }
 
   return (
-    <Box sx={{ml:9}} className='content-center'>
+    <Box className='content-center'>
       <RightWrapper>
         <Box
           sx={{
@@ -164,8 +164,8 @@ const router = useRouter()
           }}
         >
           <BoxWrapper>
-          <Box sx={{ m: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LogoImg alt='trophy' src='/images/logo.png' />
+          <Box sx={{ m: 8, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <LogoImg alt='trophy' src='/images/logo.jpg' />
             <Typography variant='h6' sx={{ ml: 2, lineHeight: 1, fontWeight: 700, fontSize: '1.5rem !important' }}>
               {/* {themeConfig.templateName} */}
             </Typography>
@@ -248,8 +248,8 @@ const router = useRouter()
                 Login
               </Button>
             </form>
-            <Divider/>
-            <StyledButton href='/users/registerUser' variant="contained">Create new User</StyledButton>
+            {/* <Divider/> */}
+            {/* <StyledButton href='/users/registerUser' variant="contained">Create new User</StyledButton> */}
           </BoxWrapper>
         </Box>
       </RightWrapper>

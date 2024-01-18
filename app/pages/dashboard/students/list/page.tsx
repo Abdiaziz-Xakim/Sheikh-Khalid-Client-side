@@ -43,7 +43,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData } from '../../../../store/users'
+import { fetchData } from '../../../../store/students'
 
 // ** Types Imports
 import { RootState, AppDispatch } from '../../../../store'
@@ -94,13 +94,13 @@ const AvatarWithoutImageLink = styled(Link)(({ theme }) => ({
 const renderClient = (row: any) => {
   if (row.photo) {
     return (
-      <AvatarWithImageLink href={`/apps/user/view/${row.id}`}>
+      <AvatarWithImageLink href={`/apps/students/view/${row.id}`}>
         {/* <CustomAvatar src={row.photo} sx={{ mr: 3, width: 34, height: 34 }} /> */}
       </AvatarWithImageLink>
     )
   } else {
     return (
-      <AvatarWithoutImageLink href={`/apps/user/view/${row.id}`}>
+      <AvatarWithoutImageLink href={`/apps/students/view/${row.id}`}>
         {/* <CustomAvatar
           skin='light'
           color={row.avatarColor || 'primary'}
@@ -160,7 +160,7 @@ const RowOptions = (props: RowOptionsProps) => {
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
         <MenuItem sx={{ p: 0 }} onClick={handleRowOptionsClose}>
-          <MenuItemLink href={`/apps/user/edit/${id}`} passHref>
+          <MenuItemLink href={`/apps/students/edit/${id}`} passHref>
             {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
             Edit
           </MenuItemLink>
@@ -178,10 +178,10 @@ const defaultColumns = [
   {
     flex: 0.2,
     minWidth: 230,
-    field: 'first_name',
-    headerName: 'First name',
+    field: 'regno',
+    regNo: 'Reg No',
     renderCell: ({ row }: CellType) => {
-      const { id, first_name } = row
+      const { id, regno} = row
 
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -192,7 +192,7 @@ const defaultColumns = [
               variant='subtitle2'
               sx={{ color: 'text.primary', textDecoration: 'none', textTransform: 'capitalize' }}
             >
-              {first_name}
+              {regno}
             </Typography>
         </Box>
       )
@@ -201,16 +201,31 @@ const defaultColumns = [
   {
     flex: 0.2,
     minWidth: 250,
-    field: 'last_name',
-    headerName: 'Last name',
+    field: 'fullname',
+    headerName: 'Full Name',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2' sx={{ textTransform: 'capitalize' }}>
-          {row.last_name}
+          {row.fullname}
         </Typography>
       )
     }
-  },  
+  },
+  {
+    flex: 0.15,
+    field: 'course',
+    minWidth: 150,
+    headerName: 'Course',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+            {row.course}
+          </Typography>
+        </Box>
+      )
+    }
+  }, 
   {
     flex: 0.2,
     minWidth: 250,
@@ -226,14 +241,14 @@ const defaultColumns = [
   },
   {
     flex: 0.15,
-    field: 'role',
+    field: 'contact',
     minWidth: 150,
-    headerName: 'Role',
+    headerName: 'Contact',
     renderCell: ({ row }: CellType) => {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
+            {row.contact}
           </Typography>
         </Box>
       )
@@ -279,7 +294,7 @@ const StudentsList = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   
-  const store = useSelector((state: RootState) => state.users)
+  const store = useSelector((state: RootState) => state.students)
 
   // Whenever there is a change in the following states, fetchData 
   useEffect(() => {

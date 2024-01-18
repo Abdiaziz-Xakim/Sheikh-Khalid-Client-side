@@ -161,37 +161,23 @@ const RegisterForm = () => {
     const { first_name, last_name, email, mobile, password, role  } = data
     let location  = "islii"
 
-    // auth.register({ first_name, last_name, email, mobile, password, role }, (res) => {
-    //   if (res.data?.user) {
-    //     setMessage("User created successfully.")
-    //     setIsError(false)
-    //     reset()
-    //   } else if (res?.response?.data?.email) {
-    //     setIsError(true)
-    //     setMessage("Email already exists!")
-    //   } else {
-    //     setIsError(true)
-    //     setMessage("An error occurred! Try again.")
-    //   }
-    // })
-
     axios
       .post(authConfig.registerEndpoint, { first_name, last_name, email, mobile, password, role, location })
       .then(async res => {
-        console.log(res.data.user)
+        // console.log(res.data.user)
 
-        const resp = await signIn("credentials", { 
-          email: email, 
-          password: password, 
-          redirect: false,
-          // callbackUrl: '/pages/about' 
-        });
+        // const resp = await signIn("credentials", { 
+        //   email: email, 
+        //   password: password, 
+        //   redirect: false,
+        //   // callbackUrl: '/pages/about' 
+        // });
 
-        if(!resp?.error){
-          console.log(res?.status)
-          router.push('/pages/dashboard')
-          router.refresh()
-        }
+        // if(!resp?.error){
+        //   console.log(res?.status)
+        //   router.push('/pages/dashboard')
+        //   router.refresh()
+        // }
 
         // if (res?.response.data.email) {
         //       setIsError(true)

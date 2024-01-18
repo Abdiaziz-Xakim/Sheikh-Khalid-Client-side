@@ -27,10 +27,11 @@ export const fetchData = createAsyncThunk(
 
   return [
     {
-      users: data,
+      students: data,
       total: response.data.count
     }
   ]
+  // console.log('data')
 })
 
 
@@ -44,7 +45,7 @@ export const studentsSlice = createSlice({
   extraReducers: builder => {
     builder
     .addCase(fetchData.fulfilled, (state, action) => {
-      state.data = action.payload[0].users
+      state.data = action.payload[0].students
       state.total = action.payload[0].total
     })
  

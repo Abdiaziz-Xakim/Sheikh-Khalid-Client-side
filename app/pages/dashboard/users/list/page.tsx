@@ -28,6 +28,7 @@ import Button from '@mui/material/Button'
 
 // ** Icons Imports
 // import DotsVertical from 'mdi-material-ui/DotsVertical'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import PencilOutline from 'mdi-material-ui/PencilOutline'
 // import DeleteOutline from 'mdi-material-ui/DeleteOutline'
 import Icon from '../../../../icon'
@@ -43,10 +44,11 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData } from '../../../../store/users'
+import { fetchData, deactivateUser } from '../../../../store/users'
 
 // ** Types Imports
 import { RootState, AppDispatch } from '../../../../store'
+import { Chip } from '@mui/material'
 // import { ThemeColor } from 'src/@core/layouts/types'
 // import { UsersType } from 'src/types/apps/userTypes'
 
@@ -142,7 +144,7 @@ const RowOptions = (props: RowOptionsProps) => {
   return (
     <>
       <IconButton size='small' onClick={handleRowOptionsClick}>
-        {/* <DotsVertical /> */}
+        <MoreVertIcon />
       </IconButton>
       <Menu
         keepMounted
@@ -160,7 +162,7 @@ const RowOptions = (props: RowOptionsProps) => {
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
         <MenuItem sx={{ p: 0 }} onClick={handleRowOptionsClose}>
-          <MenuItemLink href={`/apps/user/edit/${id}`} passHref>
+          <MenuItemLink href={`/pages/dashboard/users/edit/${id}`} passHref>
             {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
             Edit
           </MenuItemLink>
@@ -245,17 +247,9 @@ const defaultColumns = [
     field: 'status',
     headerName: 'Status',
     renderCell: ({ row }: CellType) => {
-      const status = row.is_active ? 'active' : 'inactive'
-
-    //   return (
-    //     <CustomChip
-    //       skin='light'
-    //       size='small'
-    //       label={status}
-    //       color={userStatusObj[status]}
-    //       sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-    //     />
-    //   )
+      return (
+        <Chip label="active" color="success" />
+      )
     }
   }
 ]
@@ -320,7 +314,7 @@ const UserList = () => {
     const is_active = false
     const id = userId
 
-    // dispatch(deactivateReactivateUser({id, is_active}))
+    dispatch(deactivateUser({id}))
   };
 
   // Close dialog 
