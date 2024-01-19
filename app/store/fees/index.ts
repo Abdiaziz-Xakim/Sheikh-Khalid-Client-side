@@ -21,18 +21,18 @@ interface Redux {
 
 // ** Fetch Users
 export const fetchData = createAsyncThunk(
-  'students/fetchData', 
+  'feepayments/fetchData', 
   async (params: DataParams ) => {
     const { q = '', page, pageSize} = params ?? ''
     const queryLowered = q.toLowerCase()
 
-    const response = await axios.get(`${apiUrl.url}/school_app/students/?page=${page}&page_size=${pageSize}&search=${queryLowered}`)
+    const response = await axios.get(`${apiUrl.url}/fees_app/feepayments/?page=${page}&page_size=${pageSize}&search=${queryLowered}`)
     
     const data = response.data.results
 
   return [
     {
-      students: data,
+        feepayments: data,
       total: response.data.count
     }
   ]
@@ -40,28 +40,28 @@ export const fetchData = createAsyncThunk(
 })
 
 // ** Deactivate Student
-export const deactivateUser = createAsyncThunk(
-  'appUsers/deactivateUser',
-    async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
-    const id = data.id
-    const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
-      is_active: false,
-    });
+// export const deactivateUser = createAsyncThunk(
+//   'appUsers/deactivateUser',
+//     async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
+//     const id = data.id
+//     const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
+//       is_active: false,
+//     });
 
-    dispatch(
-      fetchData({
-        q: '',
-        page: 1,
-        pageSize: 10
-      })
-    )
+//     dispatch(
+//       fetchData({
+//         q: '',
+//         page: 1,
+//         pageSize: 10
+//       })
+//     )
 
-    return response.data
-  }
-)
+//     return response.data
+//   }
+// )
 
-export const studentsSlice = createSlice({
-  name: 'students',
+export const feesSlice = createSlice({
+  name: 'fees',
   initialState: {
     data: [],
     total: 1,
@@ -70,11 +70,11 @@ export const studentsSlice = createSlice({
   extraReducers: builder => {
     builder
     .addCase(fetchData.fulfilled, (state, action) => {
-      state.data = action.payload[0].students
+      state.data = action.payload[0].feepayments
       state.total = action.payload[0].total
     })
  
   }
 })
 
-export default studentsSlice.reducer
+export default feesSlice.reducer

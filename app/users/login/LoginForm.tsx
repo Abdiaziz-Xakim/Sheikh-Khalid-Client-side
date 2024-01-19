@@ -100,7 +100,7 @@ interface FormData {
   password: string
 }
 
-const LoginPage = () => {
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [loginError, setLoginError] = useState<string>("")
 
@@ -165,7 +165,7 @@ const router = useRouter()
         >
           <BoxWrapper>
           <Box sx={{ m: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LogoImg alt='trophy' src='/images/logo.png' />
+            <LogoImg alt='trophy' src='/images/logo.jpg' />
             <Typography variant='h6' sx={{ ml: 2, lineHeight: 1, fontWeight: 700, fontSize: '1.5rem !important' }}>
               {/* {themeConfig.templateName} */}
             </Typography>
@@ -248,8 +248,8 @@ const router = useRouter()
                 Login
               </Button>
             </form>
-            <Divider/>
-            <StyledButton href='/users/registerUser' variant="contained">Create new User</StyledButton>
+            {/* <Divider/>
+            <StyledButton href='/users/registerUser' variant="contained">Create new User</StyledButton> */}
           </BoxWrapper>
         </Box>
       </RightWrapper>
@@ -261,4 +261,4 @@ const router = useRouter()
 
 // LoginPage.guestGuard = true
 
-export default LoginPage
+export default LoginForm

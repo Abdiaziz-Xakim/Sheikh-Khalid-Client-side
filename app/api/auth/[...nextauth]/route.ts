@@ -6,6 +6,8 @@ import NextAuth, {NextAuthOptions, getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 // import { userService } from "./userService";
 
+import LoginPagee from "@/app/users/login/LoginForm";
+
 // ** Next Import
 import { useRouter, usePathname } from 'next/navigation'
 
@@ -22,7 +24,7 @@ const authOptions: NextAuthOptions = {
       strategy: "jwt", //(1)
     },
     pages: {
-        signIn: '/LoginTest', //(4) custom signin page path
+        signIn: '/LoginForm', //(4) custom signin page path
     },
     providers: [
         CredentialsProvider({

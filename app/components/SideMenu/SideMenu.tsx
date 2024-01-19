@@ -12,6 +12,7 @@ import scss from "./SideMenu.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
+import MonetizationOnSharpIcon from '@mui/icons-material/MonetizationOnSharp';
 
 import {
   Divider,
@@ -50,11 +51,12 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "students/list", "users/list", "data", "profile", "settings", "",];
+const menuRouteList = ["", "students/list", "fees/list", "users/list", "data", "profile", "settings", "",];
 const menuListTranslations = [
   "Home",
   "Students",
-  "Users List",
+  "Finance",
+  "Users",
   "Data",
   "Profile",
   "Settings",
@@ -63,6 +65,7 @@ const menuListTranslations = [
 const menuListIcons = [
   <HomeIcon />,
   <SchoolIcon />,
+  <MonetizationOnSharpIcon />,
   <PersonIcon/>,
   <EqualizerIcon />,
   <Person2Icon />,

@@ -4,8 +4,11 @@
 import { useSession } from "next-auth/react";
 import scss from "./Layout.module.scss";
 import React from "react";
-import LoginPagee from "./users/login/page";
-import Dashboard from "./pages/dashboard";
+// import LoginPagee from "./users/login/page";
+import Dashboard from "./pages/dashboard/page";
+import LoginForm from "./users/login/LoginForm";
+// import LoginForm from "@/app/users/login/page";
+// import LoginPage from "./users/login/LoginForm";
 // import LoginPage from "./LoginTest";
 
 const Home: React.FC = () => {
@@ -14,7 +17,7 @@ const Home: React.FC = () => {
   return (
     <main className={scss.main}> 
       {session && <Dashboard />}
-      {!session && <LoginPagee />}
+      {!session && <LoginForm />}
     </main>
   );
 };

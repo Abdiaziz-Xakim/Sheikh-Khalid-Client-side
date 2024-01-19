@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import LoginPage from './LoginForm'
+import LoginForm from './LoginForm'
 import { Box as MuiBox, styled } from "@mui/material";
 
 const StyledBox = styled(MuiBox) ({
@@ -10,14 +10,14 @@ const StyledBox = styled(MuiBox) ({
   alignItems:"center"
 
 })
-const LoginPagee = () => {
+const page = () => {
   return (
     <StyledBox>
-      <LoginPage/>
+      <LoginForm/>
     </StyledBox>
   )
 }
 
 // LoginPagee.guestGuard = true
 
-export default LoginPagee
+export default page

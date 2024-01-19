@@ -8,5 +8,7 @@ export default {
   resetPasswordEndpoint: `${apiUrl.url}/users_app/reset-password/`,
   changePasswordEndpoint: `${apiUrl.url}/users_app/change-password/`,
   registerEndpoint: `${apiUrl.url}/users_app/register/`,
-  storageTokenKeyName: 'accessToken'
+  storageTokenKeyName: 'accessToken',
+  studentEndpoint: `${apiUrl.url}/school_app/register/`,
+  feeEndpoint: `${apiUrl.url}/fees_app/feepayments/`,
 }

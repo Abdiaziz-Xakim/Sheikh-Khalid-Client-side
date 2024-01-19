@@ -4,7 +4,7 @@
 // import type { AppProps } from 'next/app'
 
 import React, { ReactNode } from 'react';
-import Footer from './components/Footer';
+import Footer from './components/Footer/page';
 import Navbar from './components/navigation/navbar/Navbar';
 
 // ** Store Imports
