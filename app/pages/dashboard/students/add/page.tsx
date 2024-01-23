@@ -20,6 +20,13 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Alert from '@mui/material/Alert';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+
 // ** Axios
 import axios from 'axios'
 
@@ -135,6 +142,12 @@ const AddStudent = () => {
   const handleMouseDownConfirmPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
+
+  const [value, setValue] = React.useState('female');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+  };
 
   const {
     reset,
@@ -313,6 +326,24 @@ const AddStudent = () => {
                 {errors.parents_contact && <FormHelperText sx={{ color: 'error.main' }}>{errors.parents_contact.message}</FormHelperText>}
               </FormControl>
             </Grid>
+            {/* <FormControl>
+      <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+      </RadioGroup>
+    </FormControl> */}
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <Controller

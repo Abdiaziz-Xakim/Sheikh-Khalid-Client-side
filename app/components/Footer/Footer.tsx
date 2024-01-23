@@ -17,7 +17,8 @@ const Footer = () => {
   return (
     <footer className={scss.footer}>
       <Paper sx={{ width: "100%" }} color={"#262626"}>
-        <ul role="menu">
+        <p>Powered by Abdiaziz Mohamed</p>
+        {/* <ul role="menu">
           <li>
             <FooterLink href={"/"}>Home</FooterLink>
           </li>
@@ -49,7 +50,7 @@ const Footer = () => {
               {session ? "Sign Out" : "Sign In"}
             </Button>
           </li>
-        </ul>
+        </ul> */}
       </Paper>
     </footer>
   );

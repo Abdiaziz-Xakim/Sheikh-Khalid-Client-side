@@ -72,7 +72,7 @@ const Layout: React.FC<any> = ({ children, session }) => {
                 <SideMenu/>
                 {children}
                       {session && <SideMenu />}
-                    <Footer/>
+                    {/* <Footer/> */}
               </main>
                 </Provider>
           </body>

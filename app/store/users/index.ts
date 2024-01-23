@@ -59,6 +59,41 @@ export const deactivateUser = createAsyncThunk(
   }
 )
 
+// ** Update User
+export const updateUser = createAsyncThunk(
+  'appUsers/updateUser',
+    async (data: { [key: string]: number | string | any }) => {
+    const id = data.id
+    const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      mobile: data.mobile,
+      location: data.location,
+      role: data.role,
+    });
+    
+    return response.data
+  }
+)
+
+
+// ** Get Single User
+export const getSingleUser = createAsyncThunk(
+  'appUsers/getSingleUser',
+  async (params: { [key: string]: number | string | any }) => {
+    const { id } = params ?? ''
+    const response = await axios.get(`${apiUrl.url}/users_app/single-user/${id}/`);
+    
+    return [
+      // 200,
+      {
+        user: response.data,
+      }
+    ]
+  }
+)
+
 
 export const appUsersSlice = createSlice({
   name: 'appUsers',
@@ -66,6 +101,7 @@ export const appUsersSlice = createSlice({
     data: [],
     total: 1,
     status: '',
+    singleUser: null,
   },
   reducers: {},
   extraReducers: builder => {
@@ -78,6 +114,20 @@ export const appUsersSlice = createSlice({
       state.status = 'succeeded'
     })
     .addCase(deactivateUser.rejected, (state) => {
+      state.status = 'failed'
+    })
+    .addCase(getSingleUser.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.singleUser = action.payload[0].user
+    })
+    .addCase(getSingleUser.rejected, (state) => {
+      state.status = 'failed'
+      state.singleUser = null
+    })
+    .addCase(updateUser.fulfilled, (state) => {
+      state.status = 'succeeded'
+    })
+    .addCase(updateUser.rejected, (state) => {
       state.status = 'failed'
     })
  

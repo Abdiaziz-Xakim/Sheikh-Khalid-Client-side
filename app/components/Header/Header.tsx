@@ -69,7 +69,7 @@ const Header = (props: HeaderProps) => {
               textDecoration: "none",
             }}
           >
-            DataSoft
+            SHEIKH KHALID SECONDARY SCHOOL
           </Typography>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
@@ -88,7 +88,7 @@ const Header = (props: HeaderProps) => {
               textDecoration: "none",
             }}
           >
-            DataSoft
+            SHEIKH KHALID SECONDARY SCHOOL
           </Typography>
           {tabletCheck && (
             <Box sx={{ paddingRight: 5, marginLeft: "auto" }}>

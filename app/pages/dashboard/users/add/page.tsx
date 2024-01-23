@@ -112,7 +112,12 @@ const defaultValues = {
 
 const StyledCardHeader= styled(CardHeader)<CardHeaderProps>(({ theme }) => ({
   marginBottom: theme.spacing(4),
-  backgroundColor: theme.palette.background.default
+  backgroundColor: theme.palette.background.default,
+  marginTop:'27px',
+  '& .MuiCardHeader-title': {
+    fontSize: '2.0rem',
+    fontWeight: '3.5rem'
+  },
 }))
 
 
@@ -328,9 +333,9 @@ const RegisterForm = () => {
                     >
                       <MenuItem value="">Select Role</MenuItem>
                       <MenuItem value="director">Director</MenuItem>
-                      <MenuItem value="chief executive officer">Chief executive officer</MenuItem>
-                      <MenuItem value="managing director">Managing director</MenuItem>
-                      <MenuItem value="general manager">General manager</MenuItem>
+                      <MenuItem value="general-manager">General manager</MenuItem>
+                      <MenuItem value="Manager">Manager</MenuItem>
+                      <MenuItem value="Teacher">Teacher</MenuItem>
                     </Select>
                   )}
                 />

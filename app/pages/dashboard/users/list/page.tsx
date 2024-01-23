@@ -121,7 +121,7 @@ const MenuItemLink = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none',
-  padding: theme.spacing(1.5, 4),
+  // padding: theme.spacing(1.5, 4),
   color: theme.palette.text.primary
 }))
 
@@ -161,7 +161,7 @@ const RowOptions = (props: RowOptionsProps) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        <MenuItem sx={{ p: 0 }} onClick={handleRowOptionsClose}>
+        <MenuItem onClick={handleRowOptionsClose}>
           <MenuItemLink href={`/pages/dashboard/users/edit/${id}`} passHref>
             {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
             Edit
@@ -267,7 +267,7 @@ const UserList = () => {
     isLoading: false,
     total: 0,
     page: 1,
-    pageSize: 10
+    pageSize: 100
   })
 
   // ** Hooks
@@ -365,8 +365,10 @@ const UserList = () => {
                     inputProps={{ placeholder: 'Select Role' }}
                   >
                     <MenuItem value=''>Select Role</MenuItem>
+                    <MenuItem value='director'>Director</MenuItem>
+                    <MenuItem value='general-manager'>General Manager</MenuItem>
                     <MenuItem value='manager'>Manager</MenuItem>
-                    <MenuItem value='teller'>Teller</MenuItem>
+                    <MenuItem value='teacher'>Teacher</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -378,24 +380,11 @@ const UserList = () => {
         <Card>
           {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
           <DataGrid
-              autoHeight
-              pagination
-              paginationMode="server"
               rows={store.data}
               columns={columns}
-
-              // checkboxSelection
-              disableSelectionOnClick
-              pageSize={pageState.pageSize}
-              rowsPerPageOptions={[5, 10, 30, 50]}
-              sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
-
-              // onSelectionModelChange={rows => setSelectedRows(rows)}
-              rowCount={pageState.total}
-              loading={pageState.isLoading}
-              page={pageState.page - 1}
-              onPageChange={(newPage: any) => setPageState(old => ({ ...old, page: newPage + 1 }))}
-              onPageSizeChange={(newPageSize: any) => setPageState(old => ({ ...old, pageSize: newPageSize }))}
+              initialState={{
+              }}
+              pageSizeOptions={[10, 50, 100]}
             />
         </Card>
       </Grid>

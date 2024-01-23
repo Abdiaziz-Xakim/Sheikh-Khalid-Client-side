@@ -40,11 +40,11 @@ export const fetchData = createAsyncThunk(
 })
 
 // ** Deactivate Student
-export const deactivateUser = createAsyncThunk(
-  'appUsers/deactivateUser',
+export const deactivateStudent = createAsyncThunk(
+  'appStudent/deactivateStudent',
     async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
     const id = data.id
-    const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
+    const response = await axios.patch(`${apiUrl.url}/school_app/update-student/${id}/`, {
       is_active: false,
     });
 
@@ -61,10 +61,11 @@ export const deactivateUser = createAsyncThunk(
 )
 
 export const studentsSlice = createSlice({
-  name: 'students',
+  name: 'appStudent',
   initialState: {
     data: [],
     total: 1,
+    status: '',
   },
   reducers: {},
   extraReducers: builder => {
@@ -73,8 +74,15 @@ export const studentsSlice = createSlice({
       state.data = action.payload[0].students
       state.total = action.payload[0].total
     })
+    .addCase(deactivateStudent.fulfilled, (state) => {
+      state.status = 'succeeded'
+    })
+    .addCase(deactivateStudent.rejected, (state) => {
+      state.status = 'failed'
+    })
  
   }
 })
+
 
 export default studentsSlice.reducer

@@ -24,7 +24,7 @@ const DataCard = (props: DataCardProps) => {
           title={
             <Typography
               fontSize={16}
-            >{`${description} which is ${value}`}</Typography>
+            >{`${description} are ${value}`}</Typography>
           }
         >
           <IconButton>
@@ -32,7 +32,7 @@ const DataCard = (props: DataCardProps) => {
           </IconButton>
         </Tooltip>
       </div>
-      <Typography fontSize={"h4"}>{value}</Typography>
+      <Typography fontSize={"h1"}>{value}</Typography>
     </Paper>
   );
 };

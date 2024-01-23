@@ -9,34 +9,34 @@ const DataRibbon = () => {
     <Grid container gap={2} className={scss.dataRibbon}>
       <Grid>
         <DataCard
-          title={"Total Sales"}
-          value={"462"}
+          title={"Total Students"}
+          value={"106"}
           description={
-            "The totals of all DataSoft products in the current financial year"
+            "The totals of Sheikh Khalid Secondary School in the current academic year"
           }
         />
       </Grid>
       <Grid>
         <DataCard
-          title={"Total Value"}
-          value={"$25,732.53"}
-          description={"The total sales of the current financial year"}
+          title={"Total Teachers"}
+          value={"23"}
+          description={"The total teachers"}
         />
       </Grid>
       <Grid>
         <DataCard
-          title={"Avg. Order Value"}
-          value={"$159.30"}
+          title={"Other Staffs"}
+          value={"13"}
           description={
-            "The average order value for all sales this current financial year"
+            "Non teaching Staffs"
           }
         />
       </Grid>
       <Grid>
         <DataCard
-          title={"Conversion rate"}
-          value={"0.61%"}
-          description={"How many pitches become sales"}
+          title={"Subjects"}
+          value={"10"}
+          description={"Learning Compulasory Subjects"}
         />
       </Grid>
     </Grid>
