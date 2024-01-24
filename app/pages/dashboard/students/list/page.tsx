@@ -11,7 +11,7 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
-import { DataGrid, GridToolbarExport, GridToolbarContainer } from '@mui/x-data-grid'
+// import { DataGrid } from '@mui/x-data-grid';
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
@@ -49,6 +49,8 @@ import { fetchData, deactivateStudent } from '../../../../store/students'
 
 // ** Types Imports
 import { RootState, AppDispatch } from '../../../../store'
+import { DataGrid } from '@mui/x-data-grid'
+import { Chip } from '@mui/material'
 // import { ThemeColor } from 'src/@core/layouts/types'
 // import { UsersType } from 'src/types/apps/userTypes'
 
@@ -68,7 +70,7 @@ interface UserRoleType {
 interface RowOptionsProps {
   id: number | string
   handleClickOpen: () => void
-  setUserId: any
+  setStudentId: any
 }
 
 interface CellType {
@@ -121,13 +123,13 @@ const MenuItemLink = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none',
-  padding: theme.spacing(1.5, 4),
+  padding: theme.spacing(1.5, 2),
   color: theme.palette.text.primary
 }))
 
 const RowOptions = (props: RowOptionsProps) => {
   // ** Props
-  const { id, handleClickOpen, setUserId } = props
+  const { id, handleClickOpen, setStudentId } = props
 
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -163,14 +165,14 @@ const RowOptions = (props: RowOptionsProps) => {
     PaperProps={{ style: { minWidth: '8rem' } }}
   >
     <MenuItem sx={{ p: 0 }} onClick={handleRowOptionsClose}>
-      <MenuItemLink href={`/pages/dashboard/users/edit/${id}`} passHref>
+      <MenuItemLink href={`/pages/dashboard/students/edit/${id}`} passHref>
         {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
         Edit
       </MenuItemLink>
     </MenuItem>
     <MenuItem onClick={() => {handleClickOpen(), handleRowOptionsClose(), setStudentId(id)}} >
-      {/* <DeleteOutline fontSize='small' sx={{ mr: 2 }} /> */}
-      Delete
+          {/* <DeleteOutline fontSize='small' sx={{ mr: 2 }} /> */}
+          Delete
     </MenuItem>
   </Menu>
 </>
@@ -276,17 +278,9 @@ const defaultColumns = [
     field: 'status',
     headerName: 'Status',
     renderCell: ({ row }: CellType) => {
-      const status = row.is_active ? 'active' : 'inactive'
-
-    //   return (
-    //     <CustomChip
-    //       skin='light'
-    //       size='small'
-    //       label={status}
-    //       color={userStatusObj[status]}
-    //       sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-    //     />
-    //   )
+      return (
+        <Chip label="active" color="success" />
+      )
     }
   }
 ]
@@ -412,20 +406,12 @@ const StudentsList = () => {
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
           {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
+      <Card>
           <DataGrid
-                   rows={store.data}
-                  columns={columns}
-                  initialState={{
-                    pagination: {
-                      paginationModel: {
-                        pageSize: 10,
-                      },
-
-                    }
-                  }}
-                  pageSizeOptions={[10, 50, 100]}
+              rows={store.data}
+              columns={columns}
+              pageSizeOptions={[10, 50, 100]}
             />
         </Card>
       </Grid>
@@ -437,14 +423,11 @@ const StudentsList = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
                 <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-                <Typography>Are you sure you would like to delete this student?</Typography>
+                <Typography>Are you sure you would like to delete this Student?</Typography>
               </Box>
           </Box>
         </DialogContent>
-        <DialogActions sx={userInput
-userInput
-userInput
-userInput{ justifyContent: 'center' }}>
+        <DialogActions sx={{ justifyContent: 'center' }}>
           <Button variant='contained' onClick={ handleConfirmation }>
             Yes
           </Button>

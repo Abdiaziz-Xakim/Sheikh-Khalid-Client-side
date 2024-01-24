@@ -40,25 +40,25 @@ export const fetchData = createAsyncThunk(
 })
 
 // ** Deactivate Student
-// export const deactivateUser = createAsyncThunk(
-//   'appUsers/deactivateUser',
-//     async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
-//     const id = data.id
-//     const response = await axios.patch(`${apiUrl.url}/users_app/update-user/${id}/`, {
-//       is_active: false,
-//     });
+export const deactivatePayment = createAsyncThunk(
+  'appPayment/deactivatePayment',
+    async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
+    const id = data.id
+    const response = await axios.patch(`${apiUrl.url}/fees_app/update-user/${id}/`, {
+      is_active: false,
+    });
 
-//     dispatch(
-//       fetchData({
-//         q: '',
-//         page: 1,
-//         pageSize: 10
-//       })
-//     )
+    dispatch(
+      fetchData({
+        q: '',
+        page: 1,
+        pageSize: 10
+      })
+    )
 
-//     return response.data
-//   }
-// )
+    return response.data
+  }
+)
 
 export const feesSlice = createSlice({
   name: 'fees',

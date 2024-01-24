@@ -39,11 +39,12 @@ export const fetchData = createAsyncThunk(
   // console.log('data')
 })
 
-// ** Deactivate Student
+// ** Deactivate User
 export const deactivateStudent = createAsyncThunk(
   'appStudent/deactivateStudent',
     async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
     const id = data.id
+    // console.log(id)
     const response = await axios.patch(`${apiUrl.url}/school_app/update-student/${id}/`, {
       is_active: false,
     });
@@ -60,12 +61,46 @@ export const deactivateStudent = createAsyncThunk(
   }
 )
 
-export const studentsSlice = createSlice({
-  name: 'appStudent',
+// ** Update User
+export const updateStudent = createAsyncThunk(
+  'appStudent/updateStudent',
+    async (data: { [key: string]: number | string | any }) => {
+    const id = data.id
+    const response = await axios.patch(`${apiUrl.url}/school_app/update-student/${id}/`, {
+      regno: data.regno,
+      fullname: data.fullname,
+      classs: data.classs,
+      parents_name: data.parents_name,
+      parents_contact: data.parents_contact,
+      fees: data.fees,
+    });
+    
+    return response.data
+  }
+)
+// ** Get Single User
+export const getSingleStudent = createAsyncThunk(
+  'appStudents/getSingleStudent',
+  async (params: { [key: string]: number | string | any }) => {
+    const { id } = params ?? ''
+    const response = await axios.get(`${apiUrl.url}/school_app/single-student/${id}/`);
+    
+    return [
+      // 200,
+      {
+        student: response.data,
+      }
+    ]
+  }
+)
+
+export const appStudentSlice = createSlice({
+  name: 'appStudents',
   initialState: {
     data: [],
     total: 1,
     status: '',
+    singleStudent: null,
   },
   reducers: {},
   extraReducers: builder => {
@@ -80,9 +115,22 @@ export const studentsSlice = createSlice({
     .addCase(deactivateStudent.rejected, (state) => {
       state.status = 'failed'
     })
+    .addCase(getSingleStudent.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.singleStudent = action.payload[0].student
+    })
+    .addCase(getSingleStudent.rejected, (state) => {
+      state.status = 'failed'
+      state.singleStudent = null
+    })
+    .addCase(updateStudent.fulfilled, (state) => {
+      state.status = 'succeeded'
+    })
+    .addCase(updateStudent.rejected, (state) => {
+      state.status = 'failed'
+    })
  
   }
 })
 
-
-export default studentsSlice.reducer
+export default appStudentSlice.reducer
