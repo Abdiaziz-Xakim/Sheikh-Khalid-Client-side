@@ -21,10 +21,10 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import Button from '@mui/material/Button'
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import Button from '@mui/material/Button'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -45,7 +45,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData, deactivateStudent } from '../../../../store/students'
+import { fetchData } from '../../../../store/students'
 
 // ** Types Imports
 import { RootState, AppDispatch } from '../../../../store'
@@ -116,14 +116,13 @@ const renderClient = (row: any) => {
     )
   }
 }
-
 // ** Styled component for the link inside menu
 const MenuItemLink = styled(Link)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none',
-  padding: theme.spacing(1.5, 2),
+  // padding: theme.spacing(1.5, 4),
   color: theme.palette.text.primary
 }))
 
@@ -163,17 +162,23 @@ const RowOptions = (props: RowOptionsProps) => {
       horizontal: 'right'
     }}
     PaperProps={{ style: { minWidth: '8rem' } }}
-  >
-    <MenuItem sx={{ p: 0 }} onClick={handleRowOptionsClose}>
+  > 
+      <MenuItem onClick={handleRowOptionsClose}>
+          <MenuItemLink href={`/pages/dashboard/students/view/${id}`} passHref>
+            {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
+            View
+          </MenuItemLink>
+      </MenuItem>
+    <MenuItem onClick={handleRowOptionsClose}>
       <MenuItemLink href={`/pages/dashboard/students/edit/${id}`} passHref>
         {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
         Edit
       </MenuItemLink>
     </MenuItem>
-    <MenuItem onClick={() => {handleClickOpen(), handleRowOptionsClose(), setStudentId(id)}} >
+    {/* <MenuItem onClick={() => {handleClickOpen(), handleRowOptionsClose(), setStudentId(id)}} > */}
           {/* <DeleteOutline fontSize='small' sx={{ mr: 2 }} /> */}
-          Delete
-    </MenuItem>
+          {/* Delete
+    </MenuItem> */}
   </Menu>
 </>
   )
@@ -278,9 +283,9 @@ const defaultColumns = [
     field: 'status',
     headerName: 'Status',
     renderCell: ({ row }: CellType) => {
-      return (
-        <Chip label="active" color="success" />
-      )
+      const st = row.is_active ? <Chip label="active" color="success" /> : <Chip label="inactive" color="warning" />
+      return st
+      
     }
   }
 ]
@@ -345,7 +350,7 @@ const StudentsList = () => {
     const is_active = false
     const id = studentId
 
-    dispatch(deactivateStudent({id}))
+    // dispatch(deactivateStudent({id}))
   };
 
   // Close dialog 
@@ -416,57 +421,6 @@ const StudentsList = () => {
         </Card>
       </Grid>
     </Grid>
-
-    {/* Deactivate Account Dialogs */}
-    <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCancelDialog}>
-        <DialogContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
-                <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-                <Typography>Are you sure you would like to delete this Student?</Typography>
-              </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' onClick={ handleConfirmation }>
-            Yes
-          </Button>
-          <Button variant='outlined' color='secondary' onClick={ handleCancelDialog }>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
-        <DialogContent>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              '& svg': {
-                mb: 14,
-                color: studentInput === 'yes' ? 'success.main' : 'error.main'
-              }
-            }}
-          >
-            <Icon
-              fontSize='5.5rem'
-              icon={studentInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
-            />
-            <Typography variant='h4' sx={{ mb: 8 }}>
-              {studentInput === 'yes' ? 'Deleted!' : 'Cancelled!'}
-            </Typography>
-            <Typography>
-              {studentInput === 'yes' ? 'Student has been deleted.' : 'Student deletion cancelled!'}
-            </Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   )
 }

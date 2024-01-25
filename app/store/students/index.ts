@@ -39,21 +39,18 @@ export const fetchData = createAsyncThunk(
   // console.log('data')
 })
 
-// ** Deactivate User
-export const deactivateStudent = createAsyncThunk(
-  'appStudent/deactivateStudent',
+// ** Deactivate Student
+export const deactivateReactivateStudent = createAsyncThunk(
+  'appStudent/deactivateReactivateStudent',
     async (data: { [key: string]: number | string | any }, { dispatch }: Redux) => {
     const id = data.id
-    // console.log(id)
     const response = await axios.patch(`${apiUrl.url}/school_app/update-student/${id}/`, {
-      is_active: false,
+      is_active: data.is_active,
     });
 
     dispatch(
-      fetchData({
-        q: '',
-        page: 1,
-        pageSize: 10
+      getSingleStudent({
+        id
       })
     )
 
@@ -78,7 +75,7 @@ export const updateStudent = createAsyncThunk(
     return response.data
   }
 )
-// ** Get Single User
+// ** Get Single Student
 export const getSingleStudent = createAsyncThunk(
   'appStudents/getSingleStudent',
   async (params: { [key: string]: number | string | any }) => {
@@ -88,14 +85,14 @@ export const getSingleStudent = createAsyncThunk(
     return [
       // 200,
       {
-        student: response.data,
+        students: response.data,
       }
     ]
   }
 )
 
 export const appStudentSlice = createSlice({
-  name: 'appStudents',
+  name: 'appStudent',
   initialState: {
     data: [],
     total: 1,
@@ -109,15 +106,15 @@ export const appStudentSlice = createSlice({
       state.data = action.payload[0].students
       state.total = action.payload[0].total
     })
-    .addCase(deactivateStudent.fulfilled, (state) => {
+    .addCase(deactivateReactivateStudent.fulfilled, (state) => {
       state.status = 'succeeded'
     })
-    .addCase(deactivateStudent.rejected, (state) => {
+    .addCase(deactivateReactivateStudent.rejected, (state) => {
       state.status = 'failed'
     })
     .addCase(getSingleStudent.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.singleStudent = action.payload[0].student
+      state.singleStudent = action.payload[0].students
     })
     .addCase(getSingleStudent.rejected, (state) => {
       state.status = 'failed'
@@ -132,5 +129,6 @@ export const appStudentSlice = createSlice({
  
   }
 })
+
 
 export default appStudentSlice.reducer

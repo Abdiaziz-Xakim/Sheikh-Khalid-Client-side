@@ -45,7 +45,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData, deactivateUser } from '../../../../store/users'
+import { fetchData, deactivateReactivateUser } from '../../../../store/users'
 
 // ** Types Imports
 import { RootState, AppDispatch } from '../../../../store'
@@ -54,7 +54,7 @@ import { RootState, AppDispatch } from '../../../../store'
 // import { UsersType } from 'src/types/apps/userTypes'
 
 // ** Custom Components Imports
-// import TableHeader from 'src/views/apps/user/list/TableHeader'
+import TableHeader from '@/app/components/users/list/TableHeader'
 
 // import BlankLayout from 'src/@core/layouts/BlankLayout'
 
@@ -277,6 +277,7 @@ const UserList = () => {
     setPageState(old => ({ ...old, isLoading: true }))
     dispatch(
       fetchData({
+        role,
         q: value,
         page: pageState.page,
         pageSize: pageState.pageSize,
@@ -285,11 +286,13 @@ const UserList = () => {
     setPageState(old => ({ ...old, isLoading: false, total: store?.total }))
   }, [dispatch, role, value, pageState.page, pageState.pageSize, store?.total])
 
+  // handle search filter function
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
 
+  // handle filter role function
   const handleRoleChange = (e: SelectChangeEvent) => {
     setRole(e.target.value)
     setPageState({
@@ -347,7 +350,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
+          <TableHeader value={value} handleFilter={handleFilter} />
           <DataGrid
               rows={store.data}
               columns={columns}

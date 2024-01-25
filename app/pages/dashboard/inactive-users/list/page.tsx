@@ -32,7 +32,7 @@ import { Chip } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import PencilOutline from 'mdi-material-ui/PencilOutline'
 // import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-// import Icon from '../../../../icon'
+import Icon from '../../../../icon'
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -45,11 +45,10 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData, deactivateUser } from '../../../../../store/users'
+import { fetchData } from '../../../../store/inactiveusers'
 
 // ** Types Imports
-import { RootState, AppDispatch } from '../../../../../store'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { RootState, AppDispatch } from '../../../../store'
 
 // import { ThemeColor } from 'src/@core/layouts/types'
 // import { UsersType } from 'src/types/apps/userTypes'
@@ -69,8 +68,6 @@ interface UserRoleType {
 
 interface RowOptionsProps {
   id: number | string
-  handleClickOpen: () => void
-  setUserId: any
 }
 
 interface CellType {
@@ -129,7 +126,7 @@ const MenuItemLink = styled(Link)(({ theme }) => ({
 
 const RowOptions = (props: RowOptionsProps) => {
   // ** Props
-  const { id, handleClickOpen, setUserId } = props
+  const { id } = props
 
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -174,10 +171,6 @@ const RowOptions = (props: RowOptionsProps) => {
             {/* <PencilOutline fontSize='small' sx={{ mr: 2 }} /> */}
             Edit
           </MenuItemLink>
-        </MenuItem>
-        <MenuItem onClick={() => {handleClickOpen(), handleRowOptionsClose(), setUserId(id)}} >
-          {/* <DeleteOutline fontSize='small' sx={{ mr: 2 }} /> */}
-          Delete
         </MenuItem>
       </Menu>
     </>
@@ -256,20 +249,16 @@ const defaultColumns = [
     headerName: 'Status',
     renderCell: ({ row }: CellType) => {
       return (
-        <Chip label="active" color="warning" />
+        <Chip label="inactive" color="warning" />
       )
     }
   }
 ]
 
-const UserList = () => {
+const InactiveUsers = () => {
   // ** State
   const [role, setRole] = useState<string>('')
   const [value, setValue] = useState<string>('')
-  const [userId, setUserId] = React.useState<number | string>('');
-  const [open, setOpen] = useState(false);
-  const [secondDialogOpen, setSecondDialogOpen] = useState<boolean>(false)
-  const [userInput, setUserInput] = useState<string>('')
 
   const [pageState, setPageState] = useState({
     isLoading: false,
@@ -281,7 +270,7 @@ const UserList = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   
-  const store = useSelector((state: RootState) => state.users)
+  const store = useSelector((state: RootState) => state.inactive)
 
   // Whenever there is a change in the following states, fetchData 
   useEffect(() => {
@@ -308,34 +297,6 @@ const UserList = () => {
     })
   }
 
-  // Open dialog 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleConfirmation = () => {
-    setUserInput('yes')
-    setSecondDialogOpen(true)
-    setOpen(false)
-
-    // const client = id
-    const is_active = false
-    const id = userId
-
-    dispatch(deactivateUser({id}))
-  };
-
-  // Close dialog 
-  const handleCancelDialog = () => {
-    setUserInput('no')
-    setSecondDialogOpen(true)
-    setOpen(false)
-  }
-
-  const handleSecondDialogClose = () => {
-      setSecondDialogOpen(false)
-  }
-
   const columns = [
     ...defaultColumns,
     {
@@ -346,7 +307,7 @@ const UserList = () => {
       headerName: 'Actions',
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <RowOptions id={row.id} setUserId={setUserId} handleClickOpen={handleClickOpen}/>
+          <RowOptions id={row.id} />
         </Box>
       )
     }
@@ -397,60 +358,9 @@ const UserList = () => {
         </Card>
       </Grid>
     </Grid>
-
-    {/* Deactivate Account Dialogs */}
-    <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCancelDialog}>
-        <DialogContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
-                <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-                <Typography>Are you sure you would like to delete this user?</Typography>
-              </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' onClick={ handleConfirmation }>
-            Yes
-          </Button>
-          <Button variant='outlined' color='secondary' onClick={ handleCancelDialog }>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
-        <DialogContent>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              '& svg': {
-                mb: 14,
-                color: userInput === 'yes' ? 'success.main' : 'error.main'
-              }
-            }}
-          >
-            <Icon
-              fontSize='5.5rem'
-              icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
-            />
-            <Typography variant='h4' sx={{ mb: 8 }}>
-              {userInput === 'yes' ? 'Deleted!' : 'Cancelled!'}
-            </Typography>
-            <Typography>
-              {userInput === 'yes' ? 'User has been deleted.' : 'User deletion cancelled!'}
-            </Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   )
 }
 
 
-export default UserList
+export default InactiveUsers

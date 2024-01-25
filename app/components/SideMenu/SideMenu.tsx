@@ -14,6 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
 import MonetizationOnSharpIcon from '@mui/icons-material/MonetizationOnSharp';
 import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 
 import {
   Divider,
@@ -52,13 +53,14 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "students/add", "students/list", "fees/list", "users/list", "data", "profile", "settings", "",];
+const menuRouteList = ["", "students/add", "students/list", "fees/list", "users/list", "inactive-users/list", "data", "profile", "settings", "",];
 const menuListTranslations = [
   "Home",
   "Enroll Student",
   "Students",
   "Finance",
   "Users",
+  "Inactive Users",
   "Data",
   "Profile",
   "Settings",
@@ -70,6 +72,7 @@ const menuListIcons = [
   <SchoolIcon />,
   <MonetizationOnSharpIcon />,
   <PersonIcon/>,
+  <PersonOffIcon />,
   <EqualizerIcon />,
   <Person2Icon />,
   <Settings />,

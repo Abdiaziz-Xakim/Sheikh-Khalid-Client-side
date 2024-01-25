@@ -12,6 +12,7 @@ interface DataParams {
   q: string
   page: number
   pageSize: number
+  role: string
 }
 
 interface Redux {
@@ -23,10 +24,10 @@ interface Redux {
 export const fetchData = createAsyncThunk(
   'appUsers/fetchData', 
   async (params: DataParams ) => {
-    const { q = '', page, pageSize} = params ?? ''
+    const { q = '', page, role = '', pageSize} = params ?? ''
     const queryLowered = q.toLowerCase()
 
-    const response = await axios.get(`${apiUrl.url}/users_app/users/?page=${page}&page_size=${pageSize}&search=${queryLowered}`)
+    const response = await axios.get(`${apiUrl.url}/users_app/users/?page=${page}&page_size=${pageSize}&role=${role}&search=${queryLowered}`)
     
     const data = response.data.results
 
