@@ -3,16 +3,16 @@ import { configureStore } from '@reduxjs/toolkit'
 
 // ** Reducers
 import users from './users'
-import students from './students'
 import feepayments from './fees'
 import inactive from './inactiveusers'
+import students from './students'
 
 export const store = configureStore({
   reducer: {
     users,
-    students,
     feepayments,
     inactive,
+    students,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

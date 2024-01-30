@@ -1,3 +1,5 @@
+"use client"
+
 // ** React Imports
 import { useEffect } from 'react'
 
@@ -9,8 +11,8 @@ import Grid from '@mui/material/Grid'
 import Alert from '@mui/material/Alert'
 
 // ** Demo Components Imports
-import StudentViewRight from './StudentViewRight'
 import StudentViewLeft from './StudentViewLeft'
+import StudentViewRight from './StudentViewRight'
 
 // ** Types
 // import { UsersType } from 'src/types/apps/userTypes'
@@ -51,8 +53,8 @@ const StudentView = ({ id }: any) => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Alert severity='error'>
-            User with the id: {id} does not exist. Please check the list of students:{' '}
-            <Link href='/pages/dashboard/students/list'>Student List</Link>
+            User with the id: {id} does not exist. Please check the list of users:{' '}
+            <Link href='/pages/dashboard/users/list'>Students List</Link>
           </Alert>
         </Grid>
       </Grid>

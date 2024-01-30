@@ -20,18 +20,18 @@ const TableHeader = (props: TableHeaderProps) => {
   return (
     <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
       <Typography sx={{ mb: 2 }} variant='h6'>
-          Users
+          Students
       </Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
           size='small'
           value={value}
           sx={{ mr: 6, mb: 2 }}
-          placeholder='Search User'
+          placeholder='Search Student'
           onChange={e => handleFilter(e.target.value)}
         />
-        <Button sx={{ mb: 2 }} component={Link} variant='contained' href='/pages/dashboard/users/add'>
-          New User
+        <Button sx={{ mb: 2 }} component={Link} variant='contained' href='/pages/dashboard/students/add'>
+          New Student
         </Button>
       </Box>
     </Box>

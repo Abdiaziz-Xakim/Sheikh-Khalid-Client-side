@@ -1,4 +1,10 @@
 export type UsersType = {
+  fees: number
+  parents_contact: number
+  regno: string
+  parents_name: string
+  classs: string
+  fullname: string
   id: number
   role: string
   email: string

@@ -53,10 +53,10 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["", "students/add", "students/list", "fees/list", "users/list", "inactive-users/list", "data", "profile", "settings", "",];
+const menuRouteList = ["", "students/list", "fees/list", "users/list", "inactive-users/list", "data", "profile", "settings", "",];
 const menuListTranslations = [
   "Home",
-  "Enroll Student",
+  // "Enroll Student",
   "Students",
   "Finance",
   "Users",
@@ -68,7 +68,7 @@ const menuListTranslations = [
 ];
 const menuListIcons = [
   <HomeIcon />,
-  <PersonAddAltSharpIcon />,
+  // <PersonAddAltSharpIcon />,
   <SchoolIcon />,
   <MonetizationOnSharpIcon />,
   <PersonIcon/>,

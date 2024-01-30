@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "../types/user";
+import User from "../types/user";
 import { signOut } from "next-auth/react";
 
 type UserInfoProps = {

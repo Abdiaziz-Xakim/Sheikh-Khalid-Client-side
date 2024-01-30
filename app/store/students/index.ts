@@ -39,6 +39,26 @@ export const fetchData = createAsyncThunk(
   // console.log('data')
 })
 
+// ** Add student
+export const postStudent = createAsyncThunk(
+  'appStudents/postStudent',
+  async (data: { [key: string]: number | string | any }, { getState, dispatch }: Redux) => {
+    const { regno, fullname, classs, parents_name, parents_contact, fees} = data ?? ''
+    const response = await axios.post(`${apiUrl.url}/school_app/students/`, {
+      regno,
+      fullname, 
+      classs, 
+      parents_name, 
+      parents_contact, 
+      fees,
+      })
+      
+      dispatch(fetchData(getState().student.params))
+
+    return response.data
+  }
+)
+
 // ** Deactivate Student
 export const deactivateReactivateStudent = createAsyncThunk(
   'appStudent/deactivateReactivateStudent',
@@ -85,7 +105,23 @@ export const getSingleStudent = createAsyncThunk(
     return [
       // 200,
       {
-        students: response.data,
+        student: response.data,
+      }
+    ]
+  }
+)
+
+// ** Get Single Student by regno
+export const getSingleStudentByRegNo = createAsyncThunk(
+  'appStudents/getSingleStudentByRegNo',
+  async (params: { [key: string]: number | string | any }) => {
+    const regno = parseInt(params.regno)
+    const response = await axios.get(`${apiUrl.url}/school_app/single-student-by-regno/${regno}/`);
+    
+    return [
+      // 200,
+      {
+        student: response.data,
       }
     ]
   }
@@ -114,9 +150,17 @@ export const appStudentSlice = createSlice({
     })
     .addCase(getSingleStudent.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.singleStudent = action.payload[0].students
+      state.singleStudent = action.payload[0].student
     })
     .addCase(getSingleStudent.rejected, (state) => {
+      state.status = 'failed'
+      state.singleStudent = null
+    })
+    .addCase(getSingleStudentByRegNo.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.singleStudent = action.payload[0].student
+    })
+    .addCase(getSingleStudentByRegNo.rejected, (state) => {
       state.status = 'failed'
       state.singleStudent = null
     })

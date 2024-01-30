@@ -62,12 +62,12 @@ interface Props {
 //   false: 'secondary'
 // }
 
-const StudentViewLeft = ({ data }: Props) => {
+const StudentsViewLeft = ({ data }: Props) => {
   // state
   const [open, setOpen] = useState(false);
   const [secondDialogOpen, setSecondDialogOpen] = useState<boolean>(false)
-  const [studentInput, setStudentInput] = useState<string>('')
-  // const { data: session } = useSession();
+  const [userInput, setUserInput] = useState<string>('')
+  const { data: session } = useSession();
 
    // ** Hooks
  const dispatch = useDispatch<AppDispatch>()
@@ -82,7 +82,7 @@ const StudentViewLeft = ({ data }: Props) => {
   const id = data ? data.id : null
 
   const handleConfirmation = () => {
-    setStudentInput('yes')
+    setUserInput('yes')
     setSecondDialogOpen(true)
     setOpen(false)
 
@@ -93,7 +93,7 @@ const StudentViewLeft = ({ data }: Props) => {
 
   // Close dialog 
   const handleCancelDialog = () => {
-    setStudentInput('no')
+    setUserInput('no')
     setSecondDialogOpen(true)
     setOpen(false)
   }
@@ -124,119 +124,175 @@ const StudentViewLeft = ({ data }: Props) => {
 
   if (data) {
     return (
-      <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent sx={{ pt: 15, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            {/* {renderUserAvatar()} */}
-            <Typography variant='h6' sx={{ mb: 4, textTransform: 'capitalize' }}>
-              {data.regno}
-            </Typography>
-            {/* <CustomChip
-              skin='light'
-              size='small'
-              label={data.role}
-              color={roleColors[data.role]}
+        <Grid container spacing={6}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent
               sx={{
-                borderRadius: '4px',
-                fontSize: '0.875rem',
-                textTransform: 'capitalize',
-                '& .MuiChip-label': { mt: -0.25 }
+                pt: 15,
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
               }}
-            /> */}
-          </CardContent>
+            >
+              {/* {renderUserAvatar()} */}
+              <Typography
+                variant="h6"
+                sx={{ mb: 4, textTransform: 'capitalize' }}
+              >
+                {data.fullname}
+              </Typography>
+              {/* <CustomChip
+                skin='light'
+                size='small'
+                label={data.role}
+                color={roleColors[data.role]}
+                sx={{
+                  borderRadius: '4px',
+                  fontSize: '0.875rem',
+                  textTransform: 'capitalize',
+                  '& .MuiChip-label': { mt: -0.25 }
+                }}
+              /> */}
+            </CardContent>
 
-          <CardContent>
-            <Typography variant='h6'>Details</Typography>
-            <Divider sx={{ mt: 4 }} />
-            <Box sx={{ pt: 2, pb: 1 }}>
-              <Box sx={{ display: 'flex', mb: 2.7 }}>
-                <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-                  Fullname
-                </Typography>
-                <Typography variant='body2'>{data.fullname}</Typography>
+            <CardContent>
+              <Typography variant="h6">Details</Typography>
+              <Divider sx={{ mt: 4 }} />
+              <Box sx={{ pt: 2, pb: 1 }}>
+                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ mr: 2, color: 'text.primary' }}
+                  >
+                    Registration Number:
+                  </Typography>
+                  <Typography variant="body2">{data.regno}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ mr: 2, color: 'text.primary' }}
+                  >
+                    Status:
+                  </Typography>
+                  {data.is_active ? (
+                    <Chip label="active" color="success" />
+                  ) : (
+                    <Chip label="inactive" color="warning" />
+                  )}
+                  {/* <CustomChip
+                    skin='light'
+                    size='small'
+                    label={data.is_active ? 'true' : 'false'}
+                    color={statusColors[status]}
+                    sx={{
+                      height: 20,
+                      fontSize: '0.75rem',
+                      fontWeight: 500,
+                      borderRadius: '5px',
+                      textTransform: 'capitalize'
+                    }}
+                  /> */}
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                  <Typography
+                    sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}
+                  >
+                    Parent's Name:
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ textTransform: 'capitalize' }}
+                  >
+                    {data.parents_name}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                  <Typography
+                    sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}
+                  >
+                    Parent's Contact:
+                  </Typography>
+                  <Typography variant="body2">{data.parents_contact}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex' }}>
+                  <Typography
+                    sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}
+                  >
+                    Fees:
+                  </Typography>
+                  <Typography variant="body2">{data.fees}</Typography>
+                </Box>
               </Box>
-              <Box sx={{ display: 'flex', mb: 2.7 }}>
-                <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-                  Status:
-                </Typography>
-                {data.is_active ? <Chip label="active" color="success" /> : <Chip label="inactive" color="warning" />}
-                {/* <CustomChip
-                  skin='light'
-                  size='small'
-                  label={data.is_active ? 'true' : 'false'}
-                  color={statusColors[status]}
-                  sx={{
-                    height: 20,
-                    fontSize: '0.75rem',
-                    fontWeight: 500,
-                    borderRadius: '5px',
-                    textTransform: 'capitalize'
-                  }}
-                /> */}
-              </Box>
-              <Box sx={{ display: 'flex', mb: 2.7 }}>
-                <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Class:</Typography>
-                <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
-                  {data.classs}
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', mb: 2.7 }}>
-                <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Parent's Name:</Typography>
-                <Typography variant='body2'>{data.parents_name}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex' }}>
-                <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Parent's Contact:</Typography>
-                <Typography variant='body2'>{data.parents_contact}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex' }}>
-                <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Fees:</Typography>
-                <Typography variant='body2'>{data.fees}</Typography>
-              </Box>
-            </Box>
-          </CardContent>
-          {/* {session?.user?.id === id ? '' : ( */}
-          <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            {data.is_active ? 
-             <Button color='error' variant='outlined' onClick={ handleClickOpen }>
-                Deactivate
-              </Button>
-              :
-              <Button color='error' variant='outlined' onClick={ handleClickOpen }>
-                Re-activate
-              </Button>
-            }
-          </CardActions>
-          {/* )} */}
-
-          {/* Deactivate Account Dialogs */}
-          <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCancelDialog}>
-            <DialogContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {data.is_active ? 
-                  <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
-                    <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-                    <Typography>Are you sure you would like to deactivate this Student?</Typography>
-                  </Box>
-                  :
+            </CardContent>
+            {/* {session?.user?.id === id ? '' : ( */}
+            <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+              {data.is_active ? 
+               <Button color='error' variant='outlined' onClick={ handleClickOpen }>
+                  Deactivate
+                </Button>
+                :
+                <Button color='error' variant='outlined' onClick={ handleClickOpen }>
+                  Re-activate
+                </Button>
+              }
+            </CardActions>
+            {/* )} */}
+  
+            {/* Deactivate Account Dialogs */}
+            <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCancelDialog}>
+              <DialogContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {data.is_active ? 
                     <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
                       <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-                      <Typography>Are you sure you would like to re-activate this Student?</Typography>
-                    </Box> 
-                }
-              </Box>
-            </DialogContent>
-            <DialogActions sx={{ justifyContent: 'center' }}>
-              <Button variant='contained' onClick={ handleConfirmation }>
-                Yes
-              </Button>
-              <Button variant='outlined' color='secondary' onClick={ handleCancelDialog }>
-                Cancel
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
-            { !data.is_active ?
+                      <Typography>Are you sure you would like to deactivate this account?</Typography>
+                    </Box>
+                    :
+                      <Box sx={{ maxWidth: '85%', textAlign: 'center', '& svg': { mb: 4, color: 'warning.main' } }}>
+                        <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
+                        <Typography>Are you sure you would like to re-activate this account?</Typography>
+                      </Box> 
+                  }
+                </Box>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'center' }}>
+                <Button variant='contained' onClick={ handleConfirmation }>
+                  Yes
+                </Button>
+                <Button variant='outlined' color='secondary' onClick={ handleCancelDialog }>
+                  Cancel
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
+              { !data.is_active ?
+                <DialogContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      '& svg': {
+                        mb: 14,
+                        color: userInput === 'yes' ? 'success.main' : 'error.main'
+                      }
+                    }}
+                  >
+                    <Icon
+                      fontSize='5.5rem'
+                      icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
+                    />
+                    <Typography variant='h4' sx={{ mb: 8 }}>
+                      {userInput === 'yes' ? 'Deactivated!' : 'Cancelled!'}
+                    </Typography>
+                    <Typography>
+                      {userInput === 'yes' ? 'Account has been deactivated.' : 'Account deactivation cancelled!'}
+                    </Typography>
+                  </Box>
+                </DialogContent>
+              :
               <DialogContent>
                 <Box
                   sx={{
@@ -245,61 +301,36 @@ const StudentViewLeft = ({ data }: Props) => {
                     flexDirection: 'column',
                     '& svg': {
                       mb: 14,
-                      color: studentInput === 'yes' ? 'success.main' : 'error.main'
+                      color: userInput === 'yes' ? 'success.main' : 'error.main'
                     }
                   }}
                 >
                   <Icon
                     fontSize='5.5rem'
-                    icon={studentInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
+                    icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
                   />
                   <Typography variant='h4' sx={{ mb: 8 }}>
-                    {studentInput === 'yes' ? 'Deactivated!' : 'Cancelled!'}
+                    {userInput === 'yes' ? 'Re-activated!' : 'Cancelled!'}
                   </Typography>
                   <Typography>
-                    {studentInput === 'yes' ? 'Account has been deactivated.' : 'Account deactivation cancelled!'}
+                    {userInput === 'yes' ? 'Account has been re-activated!' : 'Account re-activation cancelled!'}
                   </Typography>
                 </Box>
               </DialogContent>
-            :
-            <DialogContent>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  '& svg': {
-                    mb: 14,
-                    color: studentInput === 'yes' ? 'success.main' : 'error.main'
-                  }
-                }}
-              >
-                <Icon
-                  fontSize='5.5rem'
-                  icon={studentInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
-                />
-                <Typography variant='h4' sx={{ mb: 8 }}>
-                  {studentInput === 'yes' ? 'Re-activated!' : 'Cancelled!'}
-                </Typography>
-                <Typography>
-                  {studentInput === 'yes' ? 'Account has been re-activated!' : 'Account re-activation cancelled!'}
-                </Typography>
-              </Box>
-            </DialogContent>
-            }
-            <DialogActions sx={{ justifyContent: 'center' }}>
-              <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Card>
+              }
+              <DialogActions sx={{ justifyContent: 'center' }}>
+                <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
+                  OK
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
     )
   } else {
     return null
   }
 }
 
-export default StudentViewLeft
+export default StudentsViewLeft

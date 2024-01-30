@@ -4,8 +4,8 @@ import StudentViewPage from "@/app/components/students/view/StudentViewPage"
 
 // ** Demo Components Imports
 
-const UserView = ({ params }: any) => {
+const StudentsView = ({ params }: any) => {
   return <StudentViewPage id={params.id} />
 }
 
-export default UserView
+export default StudentsView
